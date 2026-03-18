@@ -47,7 +47,6 @@ Migrations/*.resx
 
 ## Publish
 publish/
-wwwroot/dist/
 
 ## Logs
 *.log
