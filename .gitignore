@@ -1,83 +1,55 @@
-## Build results
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+# Build folders
+bin/
+obj/
 
-## .NET
-*.dll
-*.exe
-*.pdb
-*.cache
-*.deps.json
-*.runtimeconfig.json
-*.runtimeconfig.dev.json
-
-## Visual Studio
-.vs/
+# User specific files
 *.user
-*.suo
 *.userosscache
-*.sln.docstates
+*.suo
 
-## Rider
-.idea/
-
-## VS Code
+# Visual Studio
+.vs/
 .vscode/
 
-## NuGet
-*.nupkg
-*.snupkg
-packages/
-.nuget/
-project.lock.json
-project.fragment.lock.json
-artifacts/
+# Rider
+.idea/
 
-## EF Core
-Migrations/*Designer.cs
-Migrations/*.resx
-
-## Publish
-publish/
-
-## Logs
+# Logs
 *.log
 
-## OS files
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
 .DS_Store
 Thumbs.db
 
-## Node (if frontend included)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-
-## Environment
+# Environment variables
 .env
-.env.*
 
-## Secrets
-secrets.json
+# NuGet packages
+*.nupkg
+packages/
+
+# ASP.NET Core
 appsettings.Development.json
 
-## Coverage
+# Entity Framework
+Migrations/*.Designer.cs
+
+# Node (if frontend exists)
+node_modules/
+dist/
+build/
+
+# Coverage reports
 coverage/
 *.coverage
-*.coveragexml
 
-## Docker
-docker-compose.override.yml
+# Publish folder
+publish/
 
-## Temp
-*.tmp
-*.temp
+# SQLite database files (if used locally)
+*.db
+*.sqlite
