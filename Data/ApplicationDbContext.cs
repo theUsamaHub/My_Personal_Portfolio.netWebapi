@@ -109,10 +109,25 @@ namespace My_Personal_Portfolio.Data
                 {
                     Id = 1,
                     SiteTitle = "Usama Saleem",
+
+                    SiteDescription = "Personal portfolio website",
+                    SiteKeywords = "portfolio, backend, dotnet",
+
                     PrimaryColor = "#3b82f6",
                     SecondaryColor = "#10b981",
                     DarkModeEnabled = true,
-                    UpdatedAt = DateTime.UtcNow
+
+                    EnableBlog = false,
+                    EnableComments = false,
+                    EnableAnalytics = true,
+
+                    IsMaintenanceMode = false,
+                    MaintenanceMessage = "Site is under maintenance",
+
+                    GoogleAnalyticsId = null,
+                    GoogleSiteVerification = null,
+
+                    UpdatedAt = new DateTime(2026, 1, 1)
                 });
             });
         }
