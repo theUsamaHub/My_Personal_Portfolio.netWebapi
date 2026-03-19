@@ -51,10 +51,10 @@ namespace My_Personal_Portfolio.Data
                 entity.HasData(new Profile
                 {
                     Id = 1,
-                    FullName = "Your Name",
-                    Title = "Backend Developer",
+                    FullName = "Usama Saleem",
+                    Title = "Passionate Backend Developer",
                     ShortBio = "I build scalable backend systems",
-                    Email = "your.email@example.com",
+                    Email = "u641332@example.com",
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 });
@@ -86,7 +86,7 @@ namespace My_Personal_Portfolio.Data
                 entity.HasData(new SiteSettings
                 {
                     Id = 1,
-                    SiteTitle = "My Portfolio",
+                    SiteTitle = "Usama Saleem",
                     PrimaryColor = "#3b82f6",
                     SecondaryColor = "#10b981",
                     DarkModeEnabled = true,
