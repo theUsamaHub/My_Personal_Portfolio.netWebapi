@@ -41,10 +41,10 @@ namespace My_Personal_Portfolio.Models
 
         // SEO
         [StringLength(50)]
-        public string GoogleAnalyticsId { get; set; }
+        public string? GoogleAnalyticsId { get; set; }
 
         [StringLength(100)]
-        public string GoogleSiteVerification { get; set; }
+        public string? GoogleSiteVerification { get; set; }
 
         // Timestamp
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

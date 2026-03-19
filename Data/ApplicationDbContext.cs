@@ -54,9 +54,31 @@ namespace My_Personal_Portfolio.Data
                     FullName = "Usama Saleem",
                     Title = "Passionate Backend Developer",
                     ShortBio = "I build scalable backend systems",
+                    LongBio = "Experienced in building APIs and backend architectures using .NET",
                     Email = "u641332@example.com",
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    Phone = "0000000000",
+                    Location = "Pakistan",
+
+                    ProfileImageUrl = "",
+                    HeroImageUrl = "",
+                    AvatarImageUrl = "",
+
+                    GalleryImages = new string[] { },
+
+                    ResumeUrl = "",
+
+                    YearsExperience = 2,
+
+                    AvailabilityStatus = "Available", // REQUIRED FIX
+                    PreferredWorkType = "Remote",
+
+                    TotalProjects = 0,
+
+                    MetaDescription = "Backend developer portfolio",
+                    MetaKeywords = "backend, .net, api",
+
+                    CreatedAt = DateTime.UtcNow, // FIXED VALUE (important)
+                    UpdatedAt = DateTime.UtcNow  // FIXED VALUE (important)
                 });
             });
 
