@@ -16,7 +16,7 @@ namespace My_Personal_Portfolio.DTOs
 
         [StringLength(50)]
         public string IconName { get; set; }
-
+        
         [StringLength(50)]
         public string IconPack { get; set; } = "fontawesome";
 
