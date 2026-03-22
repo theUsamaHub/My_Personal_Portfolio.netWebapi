@@ -32,7 +32,7 @@ namespace My_Personal_Portfolio.Data
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
-            // Profile configuration (Singleton)
+            // Profile configuration
             modelBuilder.Entity<Profile>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -47,39 +47,8 @@ namespace My_Personal_Portfolio.Data
                 entity.Property(e => e.UpdatedAt)
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                // Ensure only one profile record
-                entity.HasData(new Profile
-                {
-                    Id = 1,
-                    FullName = "Usama Saleem",
-                    Title = "Passionate Backend Developer",
-                    ShortBio = "I build scalable backend systems",
-                    LongBio = "Experienced in building APIs and backend architectures using .NET",
-                    Email = "u641332@example.com",
-                    Phone = "0000000000",
-                    Location = "Pakistan",
-
-                    ProfileImageUrl = "",
-                    HeroImageUrl = "",
-                    AvatarImageUrl = "",
-
-                    GalleryImages = new string[] { },
-
-                    ResumeUrl = "",
-
-                    YearsExperience = 2,
-
-                    AvailabilityStatus = "Available", // REQUIRED FIX
-                    PreferredWorkType = "Remote",
-
-                    TotalProjects = 0,
-
-                    MetaDescription = "Backend developer portfolio",
-                    MetaKeywords = "backend, .net, api",
-
-                    CreatedAt = DateTime.UtcNow, // FIXED VALUE (important)
-                    UpdatedAt = DateTime.UtcNow  // FIXED VALUE (important)
-                });
+                // Remove HasData seeding
+                // No initial Profile record at migration time
             });
 
             // SocialLink configuration
@@ -95,7 +64,7 @@ namespace My_Personal_Portfolio.Data
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
-            // SiteSettings configuration (Singleton)
+            // SiteSettings configuration
             modelBuilder.Entity<SiteSettings>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -104,31 +73,8 @@ namespace My_Personal_Portfolio.Data
                 entity.Property(e => e.UpdatedAt)
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                // Ensure only one settings record
-                entity.HasData(new SiteSettings
-                {
-                    Id = 1,
-                    SiteTitle = "Usama Saleem",
-
-                    SiteDescription = "Personal portfolio website",
-                    SiteKeywords = "portfolio, backend, dotnet",
-
-                    PrimaryColor = "#3b82f6",
-                    SecondaryColor = "#10b981",
-                    DarkModeEnabled = true,
-
-                    EnableBlog = false,
-                    EnableComments = false,
-                    EnableAnalytics = true,
-
-                    IsMaintenanceMode = false,
-                    MaintenanceMessage = "Site is under maintenance",
-
-                    GoogleAnalyticsId = null,
-                    GoogleSiteVerification = null,
-
-                    UpdatedAt = new DateTime(2026, 1, 1)
-                });
+                // Remove HasData seeding
+                // No initial SiteSettings record at migration time
             });
         }
 
