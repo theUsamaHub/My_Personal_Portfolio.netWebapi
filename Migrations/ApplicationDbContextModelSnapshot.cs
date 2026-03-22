@@ -54,7 +54,7 @@ namespace My_Personal_Portfolio.Migrations
 
                     b.PrimitiveCollection<string>("GalleryImages")
                         .IsRequired()
-                        .HasColumnType("jsonb");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HeroImageUrl")
                         .IsRequired()
@@ -121,32 +121,6 @@ namespace My_Personal_Portfolio.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AvailabilityStatus = "Available",
-                            AvatarImageUrl = "",
-                            CreatedAt = new DateTime(2026, 3, 19, 16, 57, 44, 295, DateTimeKind.Utc).AddTicks(1827),
-                            Email = "u641332@example.com",
-                            FullName = "Usama Saleem",
-                            GalleryImages = "[]",
-                            HeroImageUrl = "",
-                            Location = "Pakistan",
-                            LongBio = "Experienced in building APIs and backend architectures using .NET",
-                            MetaDescription = "Backend developer portfolio",
-                            MetaKeywords = "backend, .net, api",
-                            Phone = "0000000000",
-                            PreferredWorkType = "Remote",
-                            ProfileImageUrl = "",
-                            ResumeUrl = "",
-                            ShortBio = "I build scalable backend systems",
-                            Title = "Passionate Backend Developer",
-                            TotalProjects = 0,
-                            UpdatedAt = new DateTime(2026, 3, 19, 16, 57, 44, 295, DateTimeKind.Utc).AddTicks(3072),
-                            YearsExperience = 2
-                        });
                 });
 
             modelBuilder.Entity("My_Personal_Portfolio.Models.SiteSettings", b =>
@@ -212,24 +186,6 @@ namespace My_Personal_Portfolio.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SiteSettings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DarkModeEnabled = true,
-                            EnableAnalytics = true,
-                            EnableBlog = false,
-                            EnableComments = false,
-                            IsMaintenanceMode = false,
-                            MaintenanceMessage = "Site is under maintenance",
-                            PrimaryColor = "#3b82f6",
-                            SecondaryColor = "#10b981",
-                            SiteDescription = "Personal portfolio website",
-                            SiteKeywords = "portfolio, backend, dotnet",
-                            SiteTitle = "Usama Saleem",
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("My_Personal_Portfolio.Models.SocialLink", b =>

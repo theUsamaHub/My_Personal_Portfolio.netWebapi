@@ -26,7 +26,7 @@ namespace My_Personal_Portfolio.Migrations
                     ProfileImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     HeroImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     AvatarImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    GalleryImages = table.Column<string>(type: "jsonb", nullable: false),
+                    GalleryImages = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumeUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     YearsExperience = table.Column<int>(type: "int", nullable: true),
                     AvailabilityStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -117,16 +117,6 @@ namespace My_Personal_Portfolio.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Profiles",
-                columns: new[] { "Id", "AvailabilityStatus", "AvatarImageUrl", "CreatedAt", "Email", "FullName", "GalleryImages", "HeroImageUrl", "Location", "LongBio", "MetaDescription", "MetaKeywords", "Phone", "PreferredWorkType", "ProfileImageUrl", "ResumeUrl", "ShortBio", "Title", "TotalProjects", "UpdatedAt", "YearsExperience" },
-                values: new object[] { 1, "Available", "", new DateTime(2026, 3, 19, 16, 57, 44, 295, DateTimeKind.Utc).AddTicks(1827), "u641332@example.com", "Usama Saleem", "[]", "", "Pakistan", "Experienced in building APIs and backend architectures using .NET", "Backend developer portfolio", "backend, .net, api", "0000000000", "Remote", "", "", "I build scalable backend systems", "Passionate Backend Developer", 0, new DateTime(2026, 3, 19, 16, 57, 44, 295, DateTimeKind.Utc).AddTicks(3072), 2 });
-
-            migrationBuilder.InsertData(
-                table: "SiteSettings",
-                columns: new[] { "Id", "DarkModeEnabled", "EnableAnalytics", "EnableBlog", "EnableComments", "GoogleAnalyticsId", "GoogleSiteVerification", "IsMaintenanceMode", "MaintenanceMessage", "PrimaryColor", "SecondaryColor", "SiteDescription", "SiteKeywords", "SiteTitle", "UpdatedAt" },
-                values: new object[] { 1, true, true, false, false, null, null, false, "Site is under maintenance", "#3b82f6", "#10b981", "Personal portfolio website", "portfolio, backend, dotnet", "Usama Saleem", new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_SocialLinks_DisplayOrder",
