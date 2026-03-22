@@ -39,7 +39,7 @@ namespace My_Personal_Portfolio.Data
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.GalleryImages)
-                    .HasColumnType("jsonb");
+                    .HasColumnType("nvarchar(max)");
 
                 entity.Property(e => e.CreatedAt)
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
