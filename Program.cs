@@ -67,12 +67,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Init admin
-using (var scope = app.Services.CreateScope())
-{
-    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
-    await authService.InitializeAdminUserAsync();
-}
+
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
