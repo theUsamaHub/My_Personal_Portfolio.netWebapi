@@ -1,62 +1,53 @@
 using Microsoft.EntityFrameworkCore;
 using My_Personal_Portfolio.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using My_Personal_Portfolio.Data;
 using My_Personal_Portfolio.Services;
 using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Controllers
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-// ===== DATABASE CONFIGURATION =====
-// Just uncomment the one you need!
 
-// OPTION 1: SQL Server (for local development) - USE THIS NOW
+// Swagger (REPLACE OpenAPI)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// OPTION 2: PostgreSQL (for production) - COMMENT THIS OUT FOR NOW
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-var app = builder.Build();
+// Services
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-// Register Services
-//builder.Services.AddScoped<IAuthService, AuthService>();
-
-// JWT Authentication -1
+// JWT
 var jwtKey = builder.Configuration["Jwt:Key"];
 var key = Encoding.ASCII.GetBytes(jwtKey);
 
-// JWT Authentication -2
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddJwtBearer(options =>
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            ValidateLifetime = true,
-            ClockSkew = TimeSpan.Zero
-        };
-    });
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
-
-// CORS - Allow only your frontend -3
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -67,25 +58,31 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
+
+// Swagger middleware
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-}
-//Jwt Authentication -4
-// IMPORTANT: Initialize admin user on startup
-using (var scope = app.Services.CreateScope())
-{
-    //var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
-    //await authService.InitializeAdminUserAsync();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
+// Init admin
+using (var scope = app.Services.CreateScope())
+{
+    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+    await authService.InitializeAdminUserAsync();
+}
 
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
-
 app.UseAuthorization();
+
+// Test route (optional but useful)
+//app.MapGet("/", () => "API is running");
+
+// Controllers
 app.MapControllers();
 
-app.Run();
+app.Run();  
