@@ -52,7 +52,7 @@ namespace My_Personal_Portfolio.Controllers
             }
 
             return Ok(result);
-        }
+        } 
         // Change password after first login
         [HttpPost("change-password")]
         [Authorize(Roles = "admin")]
