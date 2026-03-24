@@ -191,4 +191,23 @@ namespace My_Personal_Portfolio.DTOs
         public bool EmailVerified { get; set; }
         public DateTime CreatedAt { get; set; }
     }
+
+    public class RegisterAdminDto
+    {
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Full name is required")]
+        [StringLength(100, ErrorMessage = "Full name cannot exceed 100 characters")]
+        public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Secret key is required")]
+        [StringLength(50, ErrorMessage = "Invalid secret key")]
+        public string SecretKey { get; set; } // Additional security to prevent unauthorized registration
+    }
 }

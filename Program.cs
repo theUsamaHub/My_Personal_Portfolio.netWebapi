@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.; // FIXED
+using Microsoft.OpenApi; // FIXED
 using My_Personal_Portfolio.Data;
 using My_Personal_Portfolio.Services;
 using System.Text;
