@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using My_Personal_Portfolio.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.; // FIXED
+using My_Personal_Portfolio.Data;
 using My_Personal_Portfolio.Services;
 using System.Text;
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 
 // Swagger (REPLACE OpenAPI)
 builder.Services.AddEndpointsApiExplorer();
+// Configure Swagger with JWT support
 builder.Services.AddSwaggerGen();
 
 // Database
@@ -47,16 +49,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000", "http://localhost:5173")
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
+
 
 var app = builder.Build();
 
@@ -70,7 +63,7 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
