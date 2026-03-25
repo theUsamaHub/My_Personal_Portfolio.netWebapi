@@ -27,9 +27,13 @@ var connectionString = Env.GetString("DB_CONNECTION_STRING") ??
 // Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-// JWT
-var jwtKey = builder.Configuration["Jwt:Key"];
+// JWT Authentication - Read from .env or appsettings
+var jwtKey = Env.GetString("JWT_KEY") ?? builder.Configuration["Jwt:Key"];
+var jwtIssuer = Env.GetString("JWT_ISSUER") ?? builder.Configuration["Jwt:Issuer"];
+var jwtAudience = Env.GetString("JWT_AUDIENCE") ?? builder.Configuration["Jwt:Audience"];
+
 var key = Encoding.ASCII.GetBytes(jwtKey);
+
 
 builder.Services.AddAuthentication(options =>
 {
