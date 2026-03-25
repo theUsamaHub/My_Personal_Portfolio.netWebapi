@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DotNetEnv;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using My_Personal_Portfolio.DTOs;
 using My_Personal_Portfolio.Services;
@@ -25,14 +26,15 @@ namespace My_Personal_Portfolio.Controllers
         }
 
         // SECRET LOGIN ENDPOINT - Only you know the path!
-        // The endpoint path is read from configuration
         [HttpPost]
         [AllowAnonymous]
         [Route("{endpoint}")]
         public async Task<IActionResult> Login(string endpoint, [FromBody] LoginDto loginDto)
         {
             // Get the configured secret endpoint
-            var secretEndpoint = _configuration["SecretLoginEndpoint"] ?? "admin-console-login";
+            var secretEndpoint = Env.GetString("SECRET_LOGIN_ENDPOINT") ??
+                                 _configuration["SecretLoginEndpoint"] ??
+                                 "admin-console-login";
 
             // Validate the endpoint
             if (string.IsNullOrEmpty(endpoint) || endpoint != secretEndpoint)
@@ -52,7 +54,34 @@ namespace My_Personal_Portfolio.Controllers
             }
 
             return Ok(result);
-        } 
+        }
+
+        // SPECIAL REGISTRATION ENDPOINT - Only works if no admin exists
+        [HttpPost("register-first-admin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterFirstAdmin([FromBody] RegisterAdminDto registerDto)
+        {
+            // Optional: Add a secret key check for extra security
+            var masterSecretKey = Env.GetString("MASTER_SECRET_KEY") ??
+                                  _configuration["Admin:MasterSecretKey"];
+
+            if (!string.IsNullOrEmpty(masterSecretKey) &&
+                registerDto.SecretKey != masterSecretKey)
+            {
+                _logger.LogWarning("Invalid master secret key used for registration");
+                return Unauthorized(new { message = "Invalid secret key" });
+            }
+
+            var result = await _authService.RegisterAdminAsync(registerDto);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         // Change password after first login
         [HttpPost("change-password")]
         [Authorize(Roles = "admin")]
@@ -94,14 +123,18 @@ namespace My_Personal_Portfolio.Controllers
         [Authorize(Roles = "admin")]
         public IActionResult GetEndpointInfo()
         {
-            var secretEndpoint = _configuration["SecretLoginEndpoint"] ?? "admin-console-login";
+            var secretEndpoint = Env.GetString("SECRET_LOGIN_ENDPOINT") ??
+                                 _configuration["SecretLoginEndpoint"] ??
+                                 "admin-console-login";
+
             return Ok(new
             {
                 loginEndpoint = $"/api/auth/{secretEndpoint}",
-                note = "Keep this endpoint secret!",
+                registerEndpoint = "/api/auth/register-first-admin",
+                note = "Keep these endpoints secret! Register endpoint only works if no admin exists.",
                 method = "POST"
             });
         }
-     
+
     }
 }
