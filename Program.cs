@@ -75,10 +75,18 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 // Test route (optional but useful)
 //app.MapGet("/", () => "API is running");
 
 // Controllers
 app.MapControllers();
+
+// Initialize admin user from .env
+using (var scope = app.Services.CreateScope())
+{
+    var authService = scope.ServiceProvider.GetRequiredService<IAuthService>();
+    await authService.InitializeAdminUserAsync();
+}
 
 app.Run();  
