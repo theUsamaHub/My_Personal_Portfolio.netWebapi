@@ -17,7 +17,7 @@ namespace My_Personal_Portfolio.Controllers
         public AuthController(
             IAuthService authService,
             IConfiguration configuration,
-            ILogger<AuthController> logger) 
+            ILogger<AuthController> logger)
         {
             _authService = authService;
             _configuration = configuration;
