@@ -5,7 +5,7 @@ A modern, scalable ASP.NET Core Web API backend for a personal portfolio website
 ## 🚀 Features
  
 - **User Management**: Secure authentication with JWT tokens, role-based access control
-- **Profile Management**: Dynamic personal profile with bio, contact info, and media
+- **Profile Management**: Dynamic personal profile with bio  contact info, and media
 - **Social Links**: Manage social media links with click tracking
 - **Site Settings**: Customizable site configuration, themes, and SEO settings
 - **Database Support**: SQL Server for development, PostgreSQL for production
